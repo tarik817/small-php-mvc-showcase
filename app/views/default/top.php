@@ -20,7 +20,7 @@
     integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
     <!-- custom style -->
-    <link rel="stylesheet" href="<?php BASE_PATH . '/css/custom.css'?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . '/css/custom.css';?>">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -46,12 +46,19 @@
           <ul class="nav navbar-nav">
             <li><a href="<?php echo BASE_URL ?>">Home</a></li>
           </ul>
-          <ul class="nav navbar-nav pull-right">
-            <li><a href="<?php echo BASE_URL . '/auth/login';?>">Log In</a></li>
-            <li><a href="<?php echo BASE_URL . '/auth/register';?>">Register</a></li>
-          </ul>
+          <?php if (! \Core\Auth::check() ) { ?>
+            <ul class="nav navbar-nav pull-right">
+              <li><a href="<?php echo BASE_URL . '/auth/login';?>">Log In</a></li>
+              <li><a href="<?php echo BASE_URL . '/auth/register';?>">Register</a></li>
+            </ul>
+          <?php } else { ?>
+            <ul class="nav navbar-nav pull-right">
+              <li><a href="<?php echo BASE_URL . '/auth/logout';?>">Log out</a></li>
+            </ul>
+          <?php } ?>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
 
     <div class="container">
+      <div class="content">

@@ -1,5 +1,7 @@
 <?php 
 //Set up sessions.
+$session_lifetime = 3600 * 24 * 5; // 5 days
+session_set_cookie_params ($session_lifetime);
 session_cache_limiter(false);
 if (!isset($_SESSION)) {
 	session_start();
