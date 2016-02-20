@@ -29,7 +29,8 @@ class App
 		//Triger action.
 		call_user_func_array([$this->controller, $this->method], $this->params);
 	}
-	/* 
+	
+	/**
 	 * Parse url to array.
 	 *
 	 * @return array
