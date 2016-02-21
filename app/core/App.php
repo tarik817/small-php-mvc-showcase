@@ -6,6 +6,12 @@ class App
 	protected $method = 'index';
 	protected $params = [];
 
+
+	/**
+	 * Routing.
+	 *
+	 * @return array
+	 */
 	public function __construct()
 	{
 		$url = $this->parseUrl();

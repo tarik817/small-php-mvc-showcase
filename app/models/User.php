@@ -78,7 +78,7 @@ Class User
 	}
 
 	/**
-	 * Function all() geting all records. from user table.
+	 * Add new user.
 	 *
 	 * @param string $name user name.
 	 * @param string $email user email.

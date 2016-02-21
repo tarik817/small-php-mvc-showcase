@@ -24,24 +24,24 @@ class Connection
    * @return     object
    */
   private static function getLink ( ) {
-      if ( self :: $link ) {
-          return self :: $link ;
-      }
+    if ( self :: $link ) {
+        return self :: $link ;
+    }
 
-      $ini = "../config.ini" ;
-			$parse = parse_ini_file ( $ini ) ;
+    $ini = "../config.ini" ;
+		$parse = parse_ini_file ( $ini ) ;
 
-			self :: $engine = $parse['engine']; 
-	    self :: $host = $parse['host']; 
-	    self :: $database = $parse['database']; 
-	    self :: $user = $parse['user']; 
-	    self :: $pass = $parse['pass']; 
-	    self :: $dns = self :: $engine.':dbname='.self :: $database.";host=".self :: $host; 
+		self :: $engine = $parse['engine']; 
+    self :: $host = $parse['host']; 
+    self :: $database = $parse['database']; 
+    self :: $user = $parse['user']; 
+    self :: $pass = $parse['pass']; 
+    self :: $dns = self :: $engine.':dbname='.self :: $database.";host=".self :: $host; 
 
-      self :: $link = new PDO( self :: $dns, self :: $user, self :: $pass ); ;
+    self :: $link = new PDO( self :: $dns, self :: $user, self :: $pass ); ;
 
 
-      return self :: $link ;
+    return self :: $link ;
   }
 
   /**
@@ -50,7 +50,7 @@ class Connection
    * @return function
    */
   public static function __callStatic ( $name, $args ) {
-      $callback = array ( self :: getLink ( ), $name ) ;
-      return call_user_func_array ( $callback , $args ) ;
+    $callback = array ( self :: getLink ( ), $name ) ;
+    return call_user_func_array ( $callback , $args ) ;
   }
 }

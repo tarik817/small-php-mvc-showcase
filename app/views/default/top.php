@@ -46,15 +46,25 @@
           <ul class="nav navbar-nav">
             <li><a href="<?php echo BASE_URL ?>">Home</a></li>
           </ul>
-          <?php if (! \Core\Auth::check() ) { ?>
+          <?php
+          $user = \Core\Auth::user();
+          if (! \Core\Auth::check() ) { ?>
             <ul class="nav navbar-nav pull-right">
               <li><a href="<?php echo BASE_URL . '/auth/login';?>">Log In</a></li>
               <li><a href="<?php echo BASE_URL . '/auth/register';?>">Register</a></li>
             </ul>
-          <?php } else { ?>
-            <ul class="nav navbar-nav pull-right">
-              <li><a href="<?php echo BASE_URL . '/auth/logout';?>">Log out</a></li>
-            </ul>
+          <?php } 
+          if ( \Core\Auth::check() && isset($user['name']) ) { 
+            ?>
+          <ul class="nav navbar-nav pull-right" >
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <img src="http://placehold.it/18x18" class="profile-image img-circle"> <?php echo $user['name'] ?> <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                      <li><a href="<?php echo BASE_URL . '/auth/logout';?>">Log out</a></li>
+                  </ul>
+              </li>
+          </ul>
           <?php } ?>
         </div><!--/.nav-collapse -->
       </div>

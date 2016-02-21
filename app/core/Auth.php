@@ -24,10 +24,13 @@ class Auth
 	public static function user ()
 	{
 		if(isset($_SESSION['user'])) {
-			return $_SESSION['user'];
+			$res = $_SESSION['user'];
+			return $res[0];
 		}
 		if (isset($_COOKIE['user'])) {
-		  return json_decode($_COOKIE['user']);
+			$res = json_decode($_COOKIE['user']);
+			$res = (array) $res[0];
+		  return $res;
 		}
 		return false;
 	}
