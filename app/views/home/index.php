@@ -4,7 +4,7 @@
 	<div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
 		<div class="panel panel-default">
 			  <div class="panel-body">
-					<form enctype="multipart/form-data" method="post" action="<?php echo BASE_URL . '/home/add' ?>">
+					<form id="add_post_form" enctype="multipart/form-data" method="post" action="<?php echo BASE_URL . '/home/add' ?>">
 					  <input name="user_id" type="text" class="hidden" value="<?php echo $user['id'] ?>">
 					  <div class="form-group">
 					    <label >Message</label>

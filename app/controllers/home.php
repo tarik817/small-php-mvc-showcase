@@ -32,7 +32,7 @@ Class Home extends Controller
 	    mkdir( $uploads_dir, 0777, true);
 		}
 		//Upload files on the server.
-		if (isset($_FILES['files'])){
+		if ($_FILES['files']){
 			foreach ($_FILES["files"]["error"] as $key => $error) {
 		    if ($error == UPLOAD_ERR_OK) {
 	        $tmp_name = $_FILES["files"]["tmp_name"][$key];
@@ -46,13 +46,17 @@ Class Home extends Controller
 					$types = [];
 		    }
 			}
+		} else {
+			$paths = [];
+			$types = [];
 		}
 		//Add new post with data.
 		$post = $this->model('Post');
-		$added_post = $post->add(htmlspecialchars($_POST['user_id']), 
+		$post->add(htmlspecialchars($_POST['user_id']), 
 			htmlspecialchars($_POST['description']), json_encode($paths), json_encode($types));
-
-		return $added_post;
+		//Redirect to main page.
+		header("Location: " . BASE_URL );
+		die();
 	}
 
 	/**
