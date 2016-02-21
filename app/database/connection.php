@@ -9,13 +9,13 @@
  */
 class Connection
 {
-	private static $engine; 
-  private static $host; 
-  private static $database; 
-  private static $user; 
-  private static $pass; 
-  private static $dns; 
-	private static $link = null ;
+	private static $engine;
+  private static $host;
+  private static $database;
+  private static $user;
+  private static $pass;
+  private static $dns;
+	private static $link = null;
 
 	/**
    * Get PDO object.
@@ -39,7 +39,6 @@ class Connection
     self :: $dns = self :: $engine.':dbname='.self :: $database.";host=".self :: $host; 
 
     self :: $link = new PDO( self :: $dns, self :: $user, self :: $pass ); ;
-
 
     return self :: $link ;
   }

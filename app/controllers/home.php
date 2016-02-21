@@ -11,6 +11,7 @@ Class Home extends Controller
 	{
 		$post = $this->model('Post');
 		$posts = $post->all();
+		$posts = array_reverse($posts);
 		return $this->view('home/index', ['posts' => $posts]);
 	}
 
@@ -21,6 +22,9 @@ Class Home extends Controller
 	 */
 	public function add ()
 	{
+		if(!\Core\Auth::check()){
+			return http_response_code(401);
+		}
 		//Create folder for files if not exist.
 		$uploads_dir = BASE_PATH . '/files';
 		$relative_path = BASE_URL . '/files';
@@ -49,5 +53,25 @@ Class Home extends Controller
 			htmlspecialchars($_POST['description']), json_encode($paths), json_encode($types));
 
 		return $added_post;
+	}
+
+	/**
+	 * Delete post record. 
+	 *  
+	 * @return boolean
+	 */
+	public function remove ()
+	{
+		if(!\Core\Auth::check()){
+			return http_response_code(401);
+		}
+		$user = \Core\Auth::user();
+		if($_POST['user_id'] != $user['id']){
+			return false;
+		}
+		//Add new post with data.
+		$post = $this->model('Post');
+		$bool = $post->remove(htmlspecialchars($_POST['post_id']));
+		return $bool;
 	}
 }

@@ -9,8 +9,8 @@ class Post
 	 */
 	public function all () 
 	{
-		$db = Connection:: prepare ( "SELECT users.name, posts.description, posts.file, 
-			posts.updated_at, posts.updated_at, posts.types	FROM posts INNER JOIN users 
+		$db = Connection:: prepare ( "SELECT users.name, posts.user_id, posts.description, posts.file, 
+			posts.updated_at, posts.updated_at, posts.types, posts.id	FROM posts INNER JOIN users 
 			ON posts.user_id=users.id;");
 		$db->execute();
 		$users = $db -> fetchAll();
@@ -30,9 +30,6 @@ class Post
 	 */
 	public function add ($user_id, $desc, $file, $types)
 	{
-		if(!\Core\Auth::check()){
-			return http_response_code(401);
-		}
 		$date = new DateTime();
 		$db = Connection:: prepare ( "INSERT INTO posts (user_id,description,file,updated_at,created_at,types) 
 			VALUES (:user_id,:description,:file,:updated_at,:created_at,:types);" ) ;
@@ -59,7 +56,9 @@ class Post
 	}
 
 	/**
-	 * Get user by id
+	 * Get post by id
+	 *
+	 * @param int/string $id post id.
 	 *
 	 * @return array
 	 */
@@ -74,5 +73,23 @@ class Post
 		$db -> closeCursor();
 
 		return $user;
+	}
+
+	/**
+	 * Remove post by id;
+	 *
+	 * @param int/string $id post id.
+	 *
+	 * @return boolean
+	 */
+	public function remove ($id) 
+	{
+		$db = Connection:: prepare ( "DELETE FROM posts WHERE id=:id;" );
+		$db->bindParam(':id', $id);
+		$id = $id;
+		$res = $db->execute();
+		$db -> closeCursor();
+
+		return $res;
 	}
 }
